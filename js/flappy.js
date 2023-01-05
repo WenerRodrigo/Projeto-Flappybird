@@ -15,9 +15,6 @@ function Barreira(reversa = false) {
     this.setAltura = altura => corpo.style.height = `${altura}px`
 }
 
-//const b = new Barreira(true)
-//b.setAltura(300)
-//document.querySelector('[wm-flappy]').appendChild(b.elemento)
 
 function ParDeBarreiras(altura, abertura, x) {
     this.elemento = novoElemento('div', 'par-de-barreiras')
@@ -43,9 +40,6 @@ function ParDeBarreiras(altura, abertura, x) {
     this.setX(x)
 }
 
-//const b = new ParDeBarreiras(500, 200, 400)
-//document.querySelector('[wm-flappy]').appendChild(b.elemento)
-
 function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
     this.pares = [
         new ParDeBarreiras(altura, abertura, largura),
@@ -59,7 +53,6 @@ function Barreiras(altura, largura, abertura, espaco, notificarPonto) {
         this.pares.forEach(par => { 
             par.setX(par.getX() - deslocamento)
 
-            // quando o elemento sair da área do jogo 
             if (par.getX() < -par.getLargura()) {
                 par.setX(par.getX() + espaco * this.pares.length)
                 par.sortearAbertura()
@@ -77,7 +70,7 @@ function Passaro(alturaJogo) {
     let voando = false
 
     this.elemento = novoElemento('img', 'passaro')
-    this.elemento.src = 'imgs/passaro.png'
+    this.elemento.src = 'img/passaro.png'
 
     this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0])
     this.setY = y => this.elemento.style.bottom = `${y}px`
@@ -111,16 +104,6 @@ function Progresso() {
     this.atualizarPontos(0)
 }
 
-/*const barreiras = new Barreiras(700, 1200, 400, 400)
-const passaro = new Passaro(700)
-const areaDoJogo = document.querySelector('[wm-flappy]')
-areaDoJogo.appendChild(passaro.elemento)
-areaDoJogo.appendChild(new Progresso().elemento)
-barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento))
-setInterval(() => {
-    barreiras.animar()
-    passaro.animar()
-}, 20)*/
 
 function estaoSobrepostos(elementoA, elementoB) {
     const a = elementoA.getBoundingClientRect()
@@ -164,7 +147,7 @@ function FlappyBird() {
     barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento))
 
     this.start = () => {
-        // loop do jogo
+
         const temporizador = setInterval(() => {
             barreiras.animar()
             passaro.animar()
